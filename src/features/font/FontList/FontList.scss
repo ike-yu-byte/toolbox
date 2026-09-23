@@ -1,0 +1,113 @@
+.font-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__item {
+    padding: 12px;
+    border: 1px solid var(--ui-surface-border);
+    border-radius: 12px;
+    background-color: var(--ui-surface);
+    cursor: pointer;
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--ui-surface-hover-border);
+    }
+
+    &--active {
+      border-color: var(--ui-primary-border);
+      background-color: var(--ui-primary-soft);
+    }
+  }
+
+  &__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 32px;
+    height: 32px;
+    margin-top: 2px;
+    border-radius: 8px;
+    background-color: var(--ui-subtle-bg);
+    color: var(--ui-text-muted);
+
+    &--error {
+      background-color: var(--ui-danger-bg);
+      color: var(--ui-danger-fg);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-text-strong);
+
+    @include ellipsis;
+  }
+
+  &__meta {
+    margin-top: 2px;
+    font-size: 11px;
+    color: var(--ui-text-subtle);
+
+    @include ellipsis;
+  }
+
+  &__status {
+    margin-top: 4px;
+    font-size: 11px;
+    line-height: 1.625;
+
+    &--loading {
+      color: var(--ui-primary-text-strong);
+    }
+
+    &--error {
+      color: var(--ui-danger-fg);
+    }
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  /* 删除按钮：hover 卡片时才显形 */
+  &__remove {
+    flex: none;
+    padding: 4px;
+    border-radius: 6px;
+    color: var(--ui-text-subtle);
+    opacity: 0;
+    transition:
+      opacity 0.15s ease,
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  &__item:hover &__remove {
+    opacity: 1;
+  }
+
+  &__remove:hover {
+    background-color: var(--ui-danger-bg);
+    color: var(--ui-danger-fg);
+  }
+}

@@ -1,0 +1,147 @@
+/*
+ * 设计令牌（CSS 变量）。所有手写样式的颜色、字体都从这里取，组件样式里不写具体色值。
+ *
+ * 只有一处 :root + 一处 .dark：暗色只在这里覆盖一次，组件样式不用写任何暗色分支。
+ * 取值与 Tailwind 默认色板对应（注释标了色号），改配色时两边一起改。
+ */
+:root {
+  /* ===== 字体 ===== */
+  --ui-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --ui-font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* ===== 页面与容器 ===== */
+  --ui-page-bg: #f1f5f9; /* slate-100 */
+  --ui-page-fg: #1e293b; /* slate-800 */
+  --ui-surface: #ffffff; /* white */
+  --ui-surface-border: #e2e8f0; /* slate-200 */
+  --ui-surface-border-strong: #cbd5e1; /* slate-300 */
+  --ui-surface-hover-border: #cbd5e1; /* slate-300 */
+  --ui-dropzone-bg: rgb(255 255 255 / 0.7);
+
+  /* ===== 文字 ===== */
+  --ui-text: #0f172a; /* slate-900 */
+  --ui-text-strong: #1e293b; /* slate-800 */
+  --ui-text-secondary: #334155; /* slate-700 */
+  --ui-text-muted: #64748b; /* slate-500 */
+  --ui-text-subtle: #94a3b8; /* slate-400 */
+  --ui-text-inverse: #ffffff; /* white */
+
+  /* ===== 中性底色（hover / 分区底色 / 图标底） ===== */
+  --ui-subtle-bg: #f1f5f9; /* slate-100 */
+  --ui-subtle-bg-hover: #e2e8f0; /* slate-200 */
+  --ui-subtle-fg: #475569; /* slate-600 */
+  --ui-hover-fg: #0f172a; /* slate-900 */
+  --ui-segment-active-bg: #ffffff; /* white */
+  --ui-segment-fg: #64748b; /* slate-500 */
+  --ui-segment-fg-hover: #1e293b; /* slate-800 */
+
+  /* ===== 品牌色 ===== */
+  --ui-primary: #4f46e5; /* indigo-600 */
+  --ui-primary-hover: #6366f1; /* indigo-500 */
+  --ui-primary-active: #4338ca; /* indigo-700 */
+  --ui-primary-soft: #eef2ff; /* indigo-50 */
+  --ui-primary-soft-hover: rgb(238 242 255 / 0.4); /* indigo-50 / 40% */
+  --ui-primary-text: #4f46e5; /* indigo-600 */
+  --ui-primary-text-strong: #6366f1; /* indigo-500 */
+  --ui-primary-border-strong: #6366f1; /* indigo-500 */
+  --ui-primary-border: #818cf8; /* indigo-400 */
+  --ui-primary-border-soft: #a5b4fc; /* indigo-300 */
+  --ui-primary-border-faint: #e0e7ff; /* indigo-100 */
+  --ui-focus-ring: rgb(99 102 241 / 0.2); /* indigo-500 / 20% */
+  --ui-brand-gradient: linear-gradient(135deg, #6366f1, #22d3ee); /* indigo-500 → cyan-400 */
+  --ui-glow-gradient: linear-gradient(135deg, rgb(129 140 248 / 0.25), rgb(103 232 249 / 0.25));
+
+  /* ===== 控件（按钮 / 输入框 / 下拉框） ===== */
+  --ui-control-bg: #ffffff; /* white */
+  --ui-control-bg-hover: #f8fafc; /* slate-50 */
+  --ui-control-border: #e2e8f0; /* slate-200 */
+  --ui-control-fg: #334155; /* slate-700 */
+  --ui-placeholder: #94a3b8; /* slate-400 */
+
+  /* ===== 状态色 ===== */
+  --ui-danger-bg: #fef2f2; /* red-50 */
+  --ui-danger-bg-hover: #fee2e2; /* red-100 */
+  --ui-danger-border: #fecaca; /* red-200 */
+  --ui-danger-fg: #dc2626; /* red-600 */
+  --ui-success-border: #a7f3d0; /* emerald-200 */
+  --ui-success-fg: #047857; /* emerald-700 */
+  --ui-warning-fg: #d97706; /* amber-600 */
+
+  /* ===== 标签 / 代码块 ===== */
+  --ui-chip-bg: #f1f5f9; /* slate-100 */
+  --ui-chip-fg: #475569; /* slate-600 */
+  --ui-code-bg: #0f172a; /* slate-900 */
+  --ui-code-fg: #e2e8f0; /* slate-200 */
+
+  /* ===== JSON 值配色 ===== */
+  --ui-value-string: #059669; /* emerald-600 */
+  --ui-value-number: #d97706; /* amber-600 */
+  --ui-value-boolean: #c026d3; /* fuchsia-600 */
+  --ui-value-null: #94a3b8; /* slate-400 */
+
+  /* ===== 阴影 / 滚动条 ===== */
+  --ui-shadow-sm: 0 1px 2px 0 rgb(15 23 42 / 0.05);
+  --ui-shadow-md: 0 4px 6px -1px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.1);
+  --ui-shadow-lg: 0 10px 15px -3px rgb(15 23 42 / 0.1), 0 4px 6px -4px rgb(15 23 42 / 0.1);
+  --ui-shadow-primary: 0 4px 6px -1px rgb(99 102 241 / 0.1);
+  --ui-scrollbar: #cbd5e1; /* slate-300 */
+}
+
+.dark {
+  --ui-page-bg: #020617; /* slate-950 */
+  --ui-page-fg: #e2e8f0; /* slate-200 */
+  --ui-surface: #0f172a; /* slate-900 */
+  --ui-surface-border: #1e293b; /* slate-800 */
+  --ui-surface-border-strong: #334155; /* slate-700 */
+  --ui-surface-hover-border: #334155; /* slate-700 */
+  --ui-dropzone-bg: rgb(15 23 42 / 0.6);
+
+  --ui-text: #ffffff; /* white */
+  --ui-text-strong: #f1f5f9; /* slate-100 */
+  --ui-text-secondary: #e2e8f0; /* slate-200 */
+  --ui-text-muted: #94a3b8; /* slate-400 */
+  --ui-text-subtle: #64748b; /* slate-500 */
+  --ui-text-inverse: #ffffff; /* white */
+
+  --ui-subtle-bg: #1e293b; /* slate-800 */
+  --ui-subtle-bg-hover: #334155; /* slate-700 */
+  --ui-subtle-fg: #cbd5e1; /* slate-300 */
+  --ui-hover-fg: #f8fafc; /* slate-50 */
+  --ui-segment-active-bg: #334155; /* slate-700 */
+  --ui-segment-fg: #94a3b8; /* slate-400 */
+  --ui-segment-fg-hover: #e2e8f0; /* slate-200 */
+
+  --ui-primary-soft: rgb(99 102 241 / 0.1); /* indigo-500 / 10% */
+  --ui-primary-soft-hover: rgb(99 102 241 / 0.1);
+  --ui-primary-text: #a5b4fc; /* indigo-300 */
+  --ui-primary-text-strong: #818cf8; /* indigo-400 */
+  --ui-primary-border-strong: #818cf8; /* indigo-400 */
+  --ui-primary-border: rgb(99 102 241 / 0.7); /* indigo-500 / 70% */
+  --ui-primary-border-soft: rgb(99 102 241 / 0.6); /* indigo-500 / 60% */
+  --ui-primary-border-faint: rgb(99 102 241 / 0.2); /* indigo-500 / 20% */
+  --ui-focus-ring: rgb(99 102 241 / 0.25);
+
+  --ui-control-bg: #0f172a; /* slate-900 */
+  --ui-control-bg-hover: #1e293b; /* slate-800 */
+  --ui-control-border: #334155; /* slate-700 */
+  --ui-control-fg: #cbd5e1; /* slate-300 */
+  --ui-placeholder: #64748b; /* slate-500 */
+
+  --ui-danger-bg: rgb(69 10 10 / 0.4); /* red-950 / 40% */
+  --ui-danger-bg-hover: rgb(69 10 10 / 0.7); /* red-950 / 70% */
+  --ui-danger-border: rgb(127 29 29 / 0.6); /* red-900 / 60% */
+  --ui-danger-fg: #f87171; /* red-400 */
+  --ui-success-border: #064e3b; /* emerald-900 */
+  --ui-success-fg: #34d399; /* emerald-400 */
+
+  --ui-chip-bg: #1e293b; /* slate-800 */
+  --ui-chip-fg: #cbd5e1; /* slate-300 */
+
+  --ui-value-string: #34d399; /* emerald-400 */
+  --ui-value-number: #fbbf24; /* amber-400 */
+  --ui-value-boolean: #e879f9; /* fuchsia-400 */
+  --ui-value-null: #94a3b8; /* slate-400 */
+
+  --ui-scrollbar: #334155; /* slate-700 */
+}

@@ -1,0 +1,193 @@
+.font-page {
+  @include fade-rise;
+
+  /* ===== 左侧字体列表 + 右侧预览面板 ===== */
+  &__layout {
+    display: grid;
+    align-items: start;
+    gap: 20px;
+
+    @include media('lg') {
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+  }
+
+  &__aside {
+    @include media('lg') {
+      position: sticky;
+      top: 0;
+    }
+  }
+
+  &__panel {
+    min-width: 0;
+    padding: 16px;
+
+    @include media('sm') {
+      padding: 20px;
+    }
+  }
+
+  /* ===== 加载 / 解析失败 ===== */
+  &__state {
+    padding: 64px 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--ui-text-subtle);
+  }
+
+  &__error {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    padding: 64px 0;
+    text-align: center;
+  }
+
+  &__error-icon {
+    color: var(--ui-danger-fg);
+  }
+
+  &__error-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-danger-fg);
+  }
+
+  &__error-text {
+    max-width: 448px;
+    font-size: 12px;
+    color: var(--ui-text-subtle);
+  }
+
+  /* ===== 字体信息 ===== */
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__head-text {
+    min-width: 0;
+  }
+
+  &__font-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ui-text);
+
+    @include ellipsis;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  &__head-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__divider {
+    margin-bottom: 16px;
+  }
+
+  /* ===== 筛选工具条 ===== */
+  &__toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__search {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+  }
+
+  &__search-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: var(--ui-text-subtle);
+    pointer-events: none;
+  }
+
+  &__search-input {
+    padding-left: 36px;
+  }
+
+  &__size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ui-text-muted);
+  }
+
+  &__range {
+    width: 96px;
+    accent-color: var(--ui-primary);
+  }
+
+  &__size-value {
+    width: 24px;
+    font-family: var(--ui-font-mono);
+  }
+
+  /* ===== 用法 / 码位表 ===== */
+  &__usage {
+    margin-top: 24px;
+    border: 1px solid var(--ui-surface-border);
+    border-radius: 12px;
+  }
+
+  &__usage-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-text-secondary);
+    user-select: none;
+  }
+
+  &__usage-count {
+    font-size: 12px;
+    color: var(--ui-text-subtle);
+  }
+
+  &__usage-body {
+    padding: 12px;
+    border-top: 1px solid var(--ui-surface-border);
+  }
+
+  &__usage-pre {
+    @include code-block;
+
+    max-height: 288px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.625;
+  }
+
+  &__usage-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+  }
+}

@@ -1,0 +1,42 @@
+.not-found {
+  display: grid;
+  place-items: center;
+  padding: 96px 0;
+  text-align: center;
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background-color: var(--ui-subtle-bg);
+    color: var(--ui-text-subtle);
+  }
+
+  &__title {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ui-text-strong);
+  }
+
+  &__desc {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--ui-text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+
+  &__back-icon {
+    transform: rotate(180deg);
+  }
+}

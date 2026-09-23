@@ -1,0 +1,146 @@
+.home {
+  @include fade-rise;
+
+  /* ===== 顶部说明卡 ===== */
+  &__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 24px;
+    border: 1px solid var(--ui-surface-border);
+    border-radius: 16px;
+    background-color: var(--ui-surface);
+
+    @include media('sm') {
+      padding: 36px;
+    }
+  }
+
+  /* 右上角的品牌色光晕 */
+  &__glow {
+    position: absolute;
+    // 负值 px 不会被 postcss-pxtorem 换算（它判 pixels < minPixelValue，不取绝对值），
+    // 用 calc(-1 * 正值) 保住缩放：向右上各溢出 96px / 64px
+    top: calc(-1 * 96px);
+    right: calc(-1 * 64px);
+    width: 256px;
+    height: 256px;
+    border-radius: 999px;
+    background-image: var(--ui-glow-gradient);
+    filter: blur(48px);
+    pointer-events: none;
+  }
+
+  &__hero-inner {
+    position: relative;
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 1px solid var(--ui-primary-border-faint);
+    border-radius: 999px;
+    background-color: var(--ui-primary-soft);
+    color: var(--ui-primary-text);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__title {
+    margin-top: 16px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--ui-text);
+
+    @include media('sm') {
+      font-size: 30px;
+    }
+  }
+
+  &__subtitle {
+    max-width: 672px;
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.625;
+    color: var(--ui-text-muted);
+  }
+
+  /* ===== 工具卡片 ===== */
+  &__tools {
+    display: grid;
+    gap: 20px;
+    margin-top: 24px;
+
+    @include media('sm') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__card {
+    @include surface;
+
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--ui-primary-border-soft);
+      box-shadow: var(--ui-shadow-primary);
+    }
+  }
+
+  &__card-icon {
+    @include icon-tile;
+
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  &__card-title {
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ui-text);
+  }
+
+  &__card-desc {
+    flex: 1;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.625;
+    color: var(--ui-text-muted);
+  }
+
+  &__card-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-primary-text-strong);
+  }
+
+  &__card-arrow {
+    transition: transform 0.15s ease;
+  }
+
+  &__card:hover &__card-arrow {
+    transform: translateX(2px);
+  }
+
+  &__footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ui-text-subtle);
+  }
+}

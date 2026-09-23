@@ -1,0 +1,188 @@
+.json-page {
+  @include fade-rise;
+
+  &__file {
+    display: none;
+  }
+
+  /* ===== 左右两栏 ===== */
+  &__grid {
+    display: grid;
+    align-items: stretch;
+    gap: 20px;
+
+    @include media('lg') {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__panel {
+    @include surface;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+    overflow: hidden;
+  }
+
+  /* ===== 面板头 ===== */
+  &__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ui-surface-border);
+  }
+
+  &__head-title {
+    margin-right: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-text-secondary);
+  }
+
+  &__segment {
+    @include segmented;
+  }
+
+  &__segment-btn {
+    @include segmented-item;
+
+    &--active {
+      @include segmented-item-active;
+    }
+  }
+
+  &__select {
+    @include select-base;
+  }
+
+  &__sort {
+    @include btn-base;
+
+    padding: 6px 10px;
+    border: 1px solid var(--ui-control-border);
+    color: var(--ui-segment-fg);
+    font-size: 12px;
+
+    &:hover:not(:disabled) {
+      color: var(--ui-text);
+    }
+
+    &--active,
+    &--active:hover:not(:disabled) {
+      border-color: transparent;
+      background-color: var(--ui-primary);
+      color: var(--ui-text-inverse);
+    }
+  }
+
+  /* ===== 输入区 ===== */
+  &__editor {
+    @include scroll-y;
+
+    flex: 1;
+    min-height: 420px;
+    padding: 16px;
+    background-color: transparent;
+    color: var(--ui-text-strong);
+    font-family: var(--ui-font-mono);
+    font-size: 12.5px;
+    line-height: 24px;
+    resize: none;
+    outline: none;
+
+    &::placeholder {
+      color: var(--ui-placeholder);
+    }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--ui-surface-border);
+  }
+
+  /* ===== 输出区 ===== */
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 420px;
+  }
+
+  &__placeholder {
+    padding: 16px;
+    font-size: 14px;
+    color: var(--ui-text-subtle);
+  }
+
+  &__error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 16px;
+    padding: 12px;
+    border: 1px solid var(--ui-danger-border);
+    border-radius: 12px;
+    background-color: var(--ui-danger-bg);
+    color: var(--ui-danger-fg);
+    font-size: 12px;
+  }
+
+  &__error-icon {
+    flex: none;
+    margin-top: 1px;
+  }
+
+  &__error-body {
+    min-width: 0;
+  }
+
+  &__error-title {
+    font-weight: 500;
+  }
+
+  &__error-message {
+    margin-top: 4px;
+    word-break: break-all;
+    opacity: 0.9;
+  }
+
+  &__output {
+    @include scroll-y;
+
+    flex: 1;
+    min-height: 400px;
+    padding: 16px;
+    color: var(--ui-text-strong);
+    font-size: 12.5px;
+    line-height: 24px;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  &__tree {
+    flex: 1;
+    min-height: 400px;
+  }
+
+  &__too-large {
+    padding: 16px;
+    font-size: 14px;
+    color: var(--ui-warning-fg);
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--ui-surface-border);
+  }
+}

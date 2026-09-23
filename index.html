@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="开发者工具箱：字体图标查看器、JSON 格式化等常用开发工具" />
+    <title>DevToolbox · 开发者工具箱</title>
+    <script>
+      // 首屏前同步主题，避免闪烁
+      ;(function () {
+        try {
+          var raw = localStorage.getItem('dev-toolbox:app')
+          var stored = raw ? JSON.parse(raw).state : null
+          var theme = stored && stored.theme
+          var dark =
+            theme === 'dark' ||
+            (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+          if (stored && stored.locale) document.documentElement.lang = stored.locale
+        } catch (e) {
+          /* ignore */
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

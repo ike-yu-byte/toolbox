@@ -1,0 +1,63 @@
+@use 'mixins' as *;
+
+/*
+ * 全局基础样式：根字号、页面底色、字体、滚动条、公共关键帧。
+ * 组件自己的样式一律写在组件同级的 .scss 里，不放到这里。
+ */
+/*
+ * ===== 根字号（尺寸适配的开关）=====
+ * 正常情况由 src/utils/rem.ts 的 setupRootFontSize() 按 clientWidth 算好，
+ * 写在 <html> 的 inline style 上（优先级高于这条规则）。
+ * 这里只是「JS 未执行 / 被禁用」时的兜底，公式与 rem.ts 保持一致：
+ * 1920 视口 → 16px，并夹在 [15px, 20px] 区间。
+ *
+ * 根字号必须保留真实 px（rem 表达不了根字号本身），所以单独写成一条规则：
+ * 选择器 `html:root` 已加进 vite.config.ts 里 postcss-pxtorem 的
+ * selectorBlackList，不会被换算。别把其它需要换算的 px 写进这条规则。
+ */
+html:root {
+  font-size: clamp(15px, 0.833333vw, 20px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--ui-page-bg);
+  color: var(--ui-page-fg);
+  font-family: var(--ui-font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: var(--ui-font-mono);
+}
+
+* {
+  @include thin-scrollbar(var(--ui-scrollbar), 8px);
+}
+
+/* 页面入场动效，供 @include fade-rise 使用 */
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

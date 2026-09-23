@@ -1,0 +1,10 @@
+/*
+ * 精灵图容器：不占位、不可见。
+ * 不能用 display: none —— 部分浏览器会让 <use> 引用的 symbol 一起失效。
+ */
+.icon-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}

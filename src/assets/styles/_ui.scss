@@ -1,0 +1,188 @@
+/*
+ * 复用 UI 片段的 mixin。
+ * 跨组件重复出现的元素（按钮、输入框、标签、卡片、代码块）在这里定义一次，
+ * 各组件用 @include 引到自己语义化的类名下 —— 这样 DevTools 里看到的是
+ * `.font-page__search-input` 这种能定位的类名，而不是一堆工具类。
+ */
+
+/// 卡片 / 面板
+@mixin surface {
+  border: 1px solid var(--ui-surface-border);
+  border-radius: 16px;
+  background-color: var(--ui-surface);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+/// 按钮骨架（配色交给 btn-primary / btn-ghost / btn-danger）
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+/// 主按钮
+@mixin btn-primary {
+  @include btn-base;
+
+  background-color: var(--ui-primary);
+  color: var(--ui-text-inverse);
+
+  &:hover:not(:disabled) {
+    background-color: var(--ui-primary-hover);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--ui-primary-active);
+  }
+}
+
+/// 次要按钮（描边）
+@mixin btn-ghost {
+  @include btn-base;
+
+  border: 1px solid var(--ui-control-border);
+  background-color: var(--ui-control-bg);
+  color: var(--ui-control-fg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--ui-control-bg-hover);
+    color: var(--ui-text);
+  }
+}
+
+/// 危险操作按钮
+@mixin btn-danger {
+  @include btn-base;
+
+  border: 1px solid var(--ui-danger-border);
+  background-color: var(--ui-danger-bg);
+  color: var(--ui-danger-fg);
+
+  &:hover:not(:disabled) {
+    background-color: var(--ui-danger-bg-hover);
+  }
+}
+
+/// 输入框
+@mixin input-base {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--ui-control-border);
+  border-radius: 8px;
+  background-color: var(--ui-control-bg);
+  color: var(--ui-text);
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: var(--ui-placeholder);
+  }
+
+  &:focus {
+    border-color: var(--ui-primary-hover);
+    box-shadow: 0 0 0 3px var(--ui-focus-ring);
+  }
+}
+
+/// 下拉框（在输入框基础上收紧尺寸）
+@mixin select-base {
+  padding: 6px 8px;
+  border: 1px solid var(--ui-control-border);
+  border-radius: 8px;
+  background-color: var(--ui-control-bg);
+  color: var(--ui-segment-fg);
+  font-size: 12px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+/// 信息标签
+@mixin chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background-color: var(--ui-chip-bg);
+  color: var(--ui-chip-fg);
+  font-family: var(--ui-font-mono);
+  font-size: 12px;
+}
+
+/// 分隔线
+@mixin divider {
+  border-top: 1px solid var(--ui-surface-border);
+}
+
+/// 代码块
+@mixin code-block {
+  border-radius: 8px;
+  background-color: var(--ui-code-bg);
+  color: var(--ui-code-fg);
+  font-family: var(--ui-font-mono);
+}
+
+/// 分段控件（Tab 切换那一排）
+@mixin segmented {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 8px;
+  background-color: var(--ui-subtle-bg);
+}
+
+/// 分段控件里的按钮
+@mixin segmented-item {
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--ui-segment-fg);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+
+  &:hover {
+    color: var(--ui-segment-fg-hover);
+  }
+}
+
+/// 分段控件的选中态
+@mixin segmented-item-active {
+  background-color: var(--ui-segment-active-bg);
+  color: var(--ui-primary-text);
+  box-shadow: var(--ui-shadow-sm);
+}
+
+/// 图标方块（品牌 logo / 卡片图标）
+@mixin icon-tile {
+  display: grid;
+  place-items: center;
+  background-image: var(--ui-brand-gradient);
+  color: var(--ui-text-inverse);
+  box-shadow: var(--ui-shadow-sm);
+}

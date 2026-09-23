@@ -1,0 +1,86 @@
+.json-tree {
+  @include scroll-y;
+
+  max-height: 560px;
+  padding: 12px;
+
+  &__node {
+    font-family: var(--ui-font-mono);
+    font-size: 12.5px;
+    line-height: 24px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__toggle {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    color: var(--ui-text-subtle);
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover {
+      background-color: var(--ui-subtle-bg);
+      color: var(--ui-text-secondary);
+    }
+  }
+
+  &__caret {
+    transition: transform 0.15s ease;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* 键名与括号 */
+  &__key {
+    color: var(--ui-primary-text-strong);
+  }
+
+  /* 折叠时的条目数提示 */
+  &__meta {
+    color: var(--ui-text-subtle);
+  }
+
+  &__children {
+    margin-left: 16px;
+    padding-left: 12px;
+    border-left: 1px dashed var(--ui-surface-border-strong);
+  }
+
+  &__empty {
+    color: var(--ui-text-subtle);
+  }
+
+  &__punct {
+    color: var(--ui-text-subtle);
+  }
+
+  &__value {
+    &--string {
+      color: var(--ui-value-string);
+    }
+
+    &--number {
+      color: var(--ui-value-number);
+    }
+
+    &--boolean {
+      color: var(--ui-value-boolean);
+    }
+
+    &--null {
+      color: var(--ui-value-null);
+    }
+  }
+}

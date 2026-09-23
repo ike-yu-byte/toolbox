@@ -1,0 +1,44 @@
+.toaster {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  @include fade-rise;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--ui-control-border);
+  border-radius: 12px;
+  background-color: var(--ui-surface);
+  color: var(--ui-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: var(--ui-shadow-lg);
+
+  &__text {
+    max-width: 80vw;
+
+    @include ellipsis;
+  }
+
+  &--success {
+    border-color: var(--ui-success-border);
+    color: var(--ui-success-fg);
+  }
+
+  &--error {
+    border-color: var(--ui-danger-border);
+    color: var(--ui-danger-fg);
+  }
+}

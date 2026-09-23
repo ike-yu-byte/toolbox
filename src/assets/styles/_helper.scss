@@ -1,0 +1,14 @@
+/*
+ * 供 vite.config.ts 的 additionalData 注入（`@use 'helper' as *`）：
+ * 被 JS 直接 import 的 .scss（组件、页面、index.scss）因此可以直接用变量和 mixin，
+ * 不用写相对路径、也不用重复 @use。
+ *
+ * 两个注意点：
+ * 1. 注入只作用于「Vite 读到的文件」，也就是入口 .scss；被 Sass 内部 @use 的 partial
+ *    不会拿到注入，需要自己写 `@use 'helper' as *;`（见 _ui-classes.scss）。
+ * 2. 只 @forward「不产生 CSS 输出」的模块 —— 有输出的（_tokens / _reset / _base）
+ *    不能放进来，否则会被复制到每个引用它的文件里。
+ */
+@forward 'variables';
+@forward 'mixins';
+@forward 'ui';

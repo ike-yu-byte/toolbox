@@ -1,0 +1,94 @@
+.icon-grid {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--ui-text-subtle);
+  }
+
+  &__hint {
+    display: none;
+
+    @include media('sm') {
+      display: block;
+    }
+  }
+
+  /* 列宽按设计稿写 px，px→rem 插件会换算成 rem 跟随适配 */
+  &__cells {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  }
+
+  &__cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 8px;
+    border: 1px solid var(--ui-surface-border);
+    border-radius: 12px;
+    background-color: var(--ui-surface);
+    cursor: pointer;
+    transition:
+      transform 0.15s ease,
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      border-color: var(--ui-primary-border);
+      box-shadow: var(--ui-shadow-primary);
+    }
+  }
+
+  &__glyph {
+    color: var(--ui-text-strong);
+    transition: color 0.15s ease;
+  }
+
+  &__cell:hover &__glyph {
+    color: var(--ui-primary-text);
+  }
+
+  &__code {
+    width: 100%;
+    text-align: center;
+    font-family: var(--ui-font-mono);
+    font-size: 11px;
+    color: var(--ui-primary-text-strong);
+
+    @include ellipsis;
+  }
+
+  &__name {
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: var(--ui-text-subtle);
+
+    @include ellipsis;
+  }
+
+  &__more {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  /* 空状态：没有字形 / 没有命中搜索结果 */
+  &__empty {
+    display: grid;
+    place-items: center;
+    padding: 80px 0;
+    font-size: 14px;
+    color: var(--ui-text-subtle);
+  }
+
+  &__empty-text {
+    margin-top: 12px;
+  }
+}

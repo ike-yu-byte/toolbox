@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+/// 断点查询，优先用 $breakpoints 里的名字，也可以直接传宽度。
+/// 注意：媒体查询里的 px 是视口宽度，不参与 px→rem 换算（插件只处理声明值）。
+/// @example @include media('lg') { ... }  /  @include media(960px) { ... }
+@mixin media($breakpoint) {
+  @if has-breakpoint($breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+/// 单行省略号
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// 多行省略号
+@mixin ellipsis-multi($lines: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+}
+
+/// 细滚动条（尺寸按设计稿写 px，由 px→rem 插件换算）
+@mixin thin-scrollbar($thumb-color, $size: 8px) {
+  scrollbar-width: thin;
+  scrollbar-color: $thumb-color transparent;
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumb-color;
+    border-radius: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+/// 页面入场动效（关键帧在 _base.scss）
+@mixin fade-rise {
+  animation: fade-rise 0.25s ease-out both;
+}
+
+/// 纵向滚动容器
+@mixin scroll-y {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}

@@ -1,0 +1,152 @@
+/* 侧边导航：桌面端显示，移动端由 AppLayout 的顶部导航替代 */
+.sidebar {
+  display: none;
+  flex-direction: column;
+  flex: none;
+  width: 240px;
+  border-right: 1px solid var(--ui-surface-border);
+  background-color: var(--ui-surface);
+  transition: width 0.2s ease;
+
+  @include media('md') {
+    display: flex;
+  }
+
+  &--collapsed {
+    width: 68px;
+  }
+
+  /* ===== 品牌 ===== */
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  &__logo {
+    @include icon-tile;
+
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    flex: none;
+  }
+
+  &__meta {
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ui-text);
+
+    @include ellipsis;
+  }
+
+  &__tagline {
+    display: block;
+    font-size: 11px;
+    color: var(--ui-text-subtle);
+
+    @include ellipsis;
+  }
+
+  /* ===== 导航项 ===== */
+  &__nav {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 12px;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ui-subtle-fg);
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover {
+      background-color: var(--ui-subtle-bg);
+      color: var(--ui-hover-fg);
+    }
+
+    &--active,
+    &--active:hover {
+      background-color: var(--ui-primary-soft);
+      color: var(--ui-primary-text);
+    }
+  }
+
+  &__link-text {
+    @include ellipsis;
+  }
+
+  /* ===== 底部操作区 ===== */
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid var(--ui-surface-border);
+  }
+
+  &__segment {
+    @include segmented;
+  }
+
+  &__segment-btn {
+    @include segmented-item;
+
+    flex: 1;
+    padding: 4px 8px;
+
+    &--active {
+      @include segmented-item-active;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__action {
+    @include btn-ghost;
+
+    flex: 1;
+
+    &--block {
+      width: 100%;
+    }
+  }
+}
+
+/* 折叠态：图标居中、按钮竖排 */
+.sidebar--collapsed {
+  .sidebar__link {
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .sidebar__actions {
+    flex-direction: column;
+  }
+
+  .sidebar__action {
+    flex: none;
+    width: 100%;
+  }
+}

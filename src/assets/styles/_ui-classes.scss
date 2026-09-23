@@ -1,0 +1,44 @@
+@use 'helper' as *;
+
+/*
+ * 跨组件复用的基础类（按钮 / 输入框 / 标签 / 卡片 / 分隔线）。
+ * 它们和 _ui.scss 里的 mixin 是同一套定义的两种用法：
+ *   - 组件里需要「换个名字的按钮」时用 mixin（如 .sidebar__action { @include btn-ghost }）
+ *   - 到处都在用的标准按钮直接挂类名（如 <button class="btn btn-ghost">）
+ * 组件自己的样式在这些之后加载，同优先级下会覆盖这里，方便做局部微调。
+ */
+.surface {
+  @include surface;
+}
+
+.btn {
+  @include btn-base;
+}
+
+.btn-primary {
+  @include btn-primary;
+}
+
+.btn-ghost {
+  @include btn-ghost;
+}
+
+.btn-danger {
+  @include btn-danger;
+}
+
+.input {
+  @include input-base;
+}
+
+.chip {
+  @include chip;
+}
+
+.divider {
+  @include divider;
+}
+
+.scroll-y {
+  @include scroll-y;
+}

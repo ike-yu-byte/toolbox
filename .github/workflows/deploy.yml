@@ -1,0 +1,72 @@
+# 推送到 master（含其它分支合并进 master 产生的推送）→ 类型检查 → 按 Vercel 项目配置构建 → 部署到生产环境。
+#
+# 需要的仓库 secrets（获取方式见 README「八、构建与部署」）：
+#   VERCEL_TOKEN / VERCEL_ORG_ID / VERCEL_PROJECT_ID
+# 注意：若 Vercel 项目同时开着「Git 集成自动部署」，一次 push 会部署两遍，二选一。
+name: Deploy to Vercel
+
+on:
+  # 合并进 master 同样是一次 push：GitHub 上的 Merge / Squash / Rebase 合并都会在 master 上
+  # 产生新提交，本地 merge 后 git push 也是。所以「其它分支合并到 master」已经覆盖，
+  # 不需要再监听 pull_request（那样反而容易重复触发、且 GITHUB_SHA 取的不是 master 上的提交）。
+  push:
+    branches: [master]
+  # 手动触发：Actions 页面 → 本 workflow → Run workflow（文件进默认分支后才会出现）
+  workflow_dispatch:
+
+# 同一时刻只跑一个生产部署：连续合并时排队，而不是交叉发布
+concurrency:
+  group: vercel-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: 检查 · 构建 · 部署
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v7
+
+      - name: 准备 Node
+        uses: actions/setup-node@v7
+        with:
+          # Vite 8 要求 ^20.19 || >=22.12，需与 Vercel 项目的 Node.js Version 一致
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      # 比 Vercel 构建先失败，省掉一次完整构建；也挡住「类型错但产物仍生成」的提交
+      - name: 类型检查
+        run: npx tsc --noEmit
+
+      - name: 拉取 Vercel 项目配置与环境变量
+        run: npx --yes vercel@59 pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      # 在 runner 上按 Vercel 项目的 install / build / output 设置构建，产物写到 .vercel/output
+      - name: 构建（Vercel 构建流程）
+        run: npx --yes vercel@59 build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      # --prebuilt：直接上传上一步的产物，不在 Vercel 端重复构建
+      - name: 部署到生产环境
+        id: deploy
+        run: |
+          set -euo pipefail
+          output="$(npx --yes vercel@59 deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} 2>&1)"
+          printf '%s\n' "$output"
+          # 输出里最后一个 https 链接就是本次生产地址（前面还会有 Inspect 链接）
+          url="$(printf '%s\n' "$output" | grep -oE 'https://[^ ]+' | tail -n 1)"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: 写入运行摘要
+        run: |
+          {
+            echo "### 已部署到生产环境"
+            echo ""
+            echo "- 提交：\`${{ github.sha }}\`"
+            echo "- 地址：${{ steps.deploy.outputs.url }}"
+          } >> "$GITHUB_STEP_SUMMARY"

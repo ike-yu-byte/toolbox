@@ -1,0 +1,35 @@
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  &__text {
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ui-text);
+
+    @include media('sm') {
+      font-size: 24px;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    color: var(--ui-text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+}
