@@ -634,7 +634,7 @@ npx tsc --noEmit → vercel pull → vercel build --prod → vercel deploy --pre
    | `VERCEL_ORG_ID` | `.vercel/project.json` 里的 `orgId` |
    | `VERCEL_PROJECT_ID` | `.vercel/project.json` 里的 `projectId` |
 
-4. Vercel 项目 → Settings → General → **Node.js Version** 选 22.x，与 workflow 里的 `node-version` 保持一致（Vite 8 要求 `^20.19 || >=22.12`）。
+4. **Node 版本**：真正跑构建的是 workflow 里 `runs-on` 那台 runner（`vercel build` 在 GitHub 的机器上执行，`--prebuilt` 会跳过 Vercel 端构建），所以只要保证 workflow 的 `node-version` 满足 Vite 8 的 `^20.19 || >=22.12` 就行，纯静态站**不需要**改 Vercel 的 Node 设置。只有让 Vercel 自己构建时（保留了 Git 集成）才需要把 Vercel 项目 Settings → General → Node.js Version 也设成 22.x。
 
 **与 Vercel 的「Git 集成自动部署」二选一**：项目若已连了 Git 集成，每次 push 会先由 Vercel 自动部署一次、Action 再部署一次。要用 Action 就断开 Git 集成（Vercel → Settings → Git → Disconnect，或在 `vercel.json` 里写 `{"git":{"deploymentEnabled":false}}`）；只想用 Vercel 自带的，删掉这个 workflow 即可。
 
@@ -660,4 +660,4 @@ npx tsc --noEmit → vercel pull → vercel build --prod → vercel deploy --pre
 | `location.state` 刷新后没了 | 直接改地址栏或新标签打开会丢；需要可靠跨页就放 store |
 | push 之后 Vercel 部署了两次 | Vercel 的 Git 集成与 `.github/workflows/deploy.yml` 同时生效，二选一（见「八、构建与部署」） |
 | Action 报 `VERCEL_ORG_ID` / `VERCEL_PROJECT_ID` 缺失 | 三个 secrets 缺一不可，后两个来自 `npx vercel link` 后 `.vercel/project.json` 的 `orgId` / `projectId` |
-| Action 构建失败、提示 Node 版本不满足 | workflow 的 `node-version` 与 Vercel 项目的 Node.js Version 都要满足 Vite 8 的 `^20.19 \|\| >=22.12` |
+| Action 构建失败、提示 Node 版本不满足 | 改 workflow 里的 `node-version`（`--prebuilt` 流程下构建发生在 runner 上）；只有让 Vercel 侧自己构建时才需要动 Vercel 的 Node.js Version。Vite 8 要求 `^20.19 \|\| >=22.12` |
