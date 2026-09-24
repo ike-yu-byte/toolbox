@@ -14,7 +14,9 @@ on:
   # 手动触发：Actions 页面 → 本 workflow → Run workflow（文件进默认分支后才会出现）
   workflow_dispatch:
 
-# 同一时刻只跑一个生产部署：连续合并时排队，而不是交叉发布
+# 同一时刻只跑一个生产部署：连续合并时排队，而不是交叉发布。
+# group 名可任意取，但要保证「同一仓库内、同一类部署」用同一个名字；
+# 以后若加 PR 预览部署，必须换一个名字（否则预览会被生产部署卡住）。
 concurrency:
   group: vercel-production
   cancel-in-progress: false
